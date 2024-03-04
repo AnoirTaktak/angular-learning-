@@ -1,0 +1,40 @@
+<div>
+  <h1> Fiche Produits </h1>
+  <form #produitForm="ngForm" (ngSubmit)="editerProduit(produitForm)">
+    <label for="id">id :</label>
+    <input id="id" name="id" type="number" [(ngModel)]="produitCourant.id" required disabled=""/><br><br>
+    <label for="code">code :</label>
+    <input type ="text" name="code" [(ngModel)]="produitCourant.code"/><br><br>
+    <label for="designation">designation :</label>
+    <input type ="text" name="designation" [(ngModel)]="produitCourant.designation"/><br><br>
+    <label for="prix">Prix :</label>
+    <input type ="text" name="prix" [(ngModel)]="produitCourant.prix"/><br><br>
+
+    <input type ="submit" value="Valider" [disabled]="!produitForm.form.valid"/>
+
+  </form>
+  <button (click)="resetInput()" >Effacer</button>
+  <h1> liste des produits </h1>
+  <!-- <app-entete></app-entete> -->
+  <table>
+  <thead>
+  <tr>
+  <th> Id </th> <th> Code </th> <th> Designation </th> <th> Prix </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor = "let p of produits; let i = index">
+  <td> {{p.id}}</td>
+  <td> {{p.code}}</td>
+  <td> {{p.designation}}</td>
+  <td> {{p.prix}}</td>
+  <td>
+    <button (click)="editProduct(p)" >Editer</button>
+  </td>
+  <td>
+    <button (click)="effacerProduit(p,i)" >Supprimer</button>
+  </td>
+  </tr>
+  </tbody>
+  </table>
+  </div>

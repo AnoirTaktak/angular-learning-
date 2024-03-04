@@ -1,0 +1,8 @@
+<form (ngSubmit)="validerFormulaire()">
+  <input type="text" [(ngModel)]="nouveauProduit.id" name="id" placeholder="ID du produit">
+  <input type="text" [(ngModel)]="nouveauProduit.designation" name="designation" placeholder="Désignation du produit">
+  <input type="text" [(ngModel)]="nouveauProduit.code" name="code" placeholder="Code du produit">
+  <input type="number" [(ngModel)]="nouveauProduit.prix" name="prix" placeholder="Prix du produit">
+  <button type="submit">Ajouter</button>
+</form>
+

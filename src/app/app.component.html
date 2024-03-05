@@ -1,12 +1,12 @@
-<div>
+<div class="container">
   <nav>
     <table>
       <tr>
         <td *ngFor="let action of actions">
-          <button
+          <button class="btn btn-success"
           (click)="setActionCourante(action)"
-          [style.backgroundColor]="action==actionCourante?'yellow':'red'"
-          routerLink="{{action.route}}">{{action.title}}</button>
+          [style.backgroundColor]="action==actionCourante?'yellow':'green'"
+          routerLink="{{action.route}}"><i [ngClass]="getIconClass(action)"></i>{{action.title}}</button>
         </td>
       </tr>
     </table>

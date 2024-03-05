@@ -24,4 +24,6 @@ const routes : Routes = [
 
 
 
-export class AppModule { }
+export class AppModule {
+  
+}

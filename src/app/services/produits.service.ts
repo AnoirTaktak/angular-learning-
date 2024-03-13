@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Produit } from '../model/protuit';
 import { Observable } from 'rxjs';
+import { Categorie } from '../model/categorie';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class ProduitsService {
   // Url du service web de gestion de produits
   // commune pour toutes les méthodes
 
-  urlHote="http://localhost:9999/produits/";
+  urlHote="http://localhost:3333/produits/";
+  urlHote1="http://localhost:3333/produits/";
 
   constructor(private http :HttpClient)
   {
@@ -33,9 +35,14 @@ export class ProduitsService {
     return this.http.post<Array<Produit>> (this.urlHote,nouveau);
   }
 
-  updateProduit(idP: number | undefined, nouveau: Produit)
+  updateProduit(idP: number, nouveau: Produit)
   {
     return this.http.put(this.urlHote+idP,nouveau);
+  }
+
+  getCat() :Observable<Array<Categorie>>
+  {
+    return this.http.get<Array<Categorie>> (this.urlHote1);
   }
 }
 

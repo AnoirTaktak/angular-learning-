@@ -4,6 +4,7 @@ import { from } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ProduitsService } from '../services/produits.service';
+import { Categorie } from '../model/categorie';
 
 @Component({
   selector: 'app-produits',
@@ -14,7 +15,7 @@ export class ProduitsComponent implements OnInit {
 
 
 
-
+  showForm: boolean = false;
   editedProduct: Produit = new Produit();
   produitCourant: Produit = new Produit();
   inputValue: string = '';
@@ -27,6 +28,9 @@ export class ProduitsComponent implements OnInit {
 
     index = this.produits.findIndex(p => p.id === this.produitCourant.id);
     p = new Produit();
+    cat :Array<any> = [
+
+    ];
 
 
 
@@ -49,6 +53,7 @@ export class ProduitsComponent implements OnInit {
         designation: '',
         prix: 0
       };
+      this.showForm=false;
     }
 
 
@@ -57,6 +62,7 @@ export class ProduitsComponent implements OnInit {
 
   editProduct(produit : Produit){
       this.produitCourant = produit;
+      this.showForm=true;
     }
     constructor(private produitsService :ProduitsService)
     {
@@ -80,7 +86,11 @@ export class ProduitsComponent implements OnInit {
     //En cas de succès
     next: data=> {
     console.log("Succès GET");
+    console.log(data);
     this.produits=data;
+    this.cat=data;
+    console.log(this.cat);
+
     },
     //En cas d'erreur
     error: err=> {
@@ -88,6 +98,7 @@ export class ProduitsComponent implements OnInit {
     }
   }
 )
+
 }
 
 effacerProduit(p:Produit,n:number){
@@ -107,22 +118,28 @@ effacerProduit(p:Produit,n:number){
   )
 }
 
-editerProduit(form: NgForm){
+editerProduit(form: NgForm) {
+  console.log(form.value);
+  const productId = form.value.id;
 
-  this.produitsService.updateProduit(form.value.id,form.value).subscribe(
-    {
-      next: data=>{
-        console.log("mise a jour affecté du produit : "+form.value.designation);
-      },
-
-        error : err=>{
-          console.log("error de mise a jour")
+  if (productId !== undefined) {
+    // Use non-null assertion operator (!) to indicate that productId is not undefined
+    this.produitsService.updateProduit(productId, form.value).subscribe(
+      {
+        next: data => {
+          console.log("Mise à jour affectée du produit : " + form.value.designation);
+        },
+        error: err => {
+          console.log("Erreur de mise à jour :", err);
         }
-
-
-    }
-  )
+      }
+    );
+  } else {
+    console.error("Product ID is undefined");
+  }
 }
+
+
 
 /*validerFormulaire(form: NgForm)
 {

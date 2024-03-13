@@ -1,8 +1,8 @@
 <div class="container">
   <h1> Fiche Produits </h1>
-  <form #produitForm="ngForm" (ngSubmit)="editerProduit(produitForm)" class="form-group">
+  <form *ngIf="showForm" #produitForm="ngForm" (ngSubmit)="editerProduit(produitForm)" class="form-group">
     <label for="id">id :</label>
-    <input class="form-control" id="id" name="id" type="number" [(ngModel)]="produitCourant.id" required disabled="" /><br><br>
+    <input class="form-control" id="id" name="id" type="number" [(ngModel)]="produitCourant.id"/><br><br>
     <label for="code">code :</label>
     <input class="form-control" type="text" name="code" [(ngModel)]="produitCourant.code" /><br><br>
     <label for="designation">designation :</label>
@@ -23,14 +23,18 @@
         <th> Code </th>
         <th> Designation </th>
         <th> Prix </th>
+        <th> Categorie </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let p of produits; let i = index">
+      <tr *ngFor="let p of cat; let i = index; let c of cat">
         <td> {{p.id}}</td>
         <td> {{p.code}}</td>
         <td> {{p.designation}}</td>
         <td> {{p.prix}}</td>
+        <td *ngIf="c.categorie!=null; else elseBlock"> {{c.categorie.libelle}}</td><ng-template #elseBlock>
+          <td>No Categorie</td>
+        </ng-template>
         <td>
           <button (click)="editProduct(p)" class="btn btn-dark"><i class="bi bi-brush"></i>Editer</button>
         </td>
